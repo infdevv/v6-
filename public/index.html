@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Glitch - Home</title>
+  <meta name="description" content="Glitch is a highly advanced proxy for all your needs.">
+</head>
+<body>
+
+  <script>
+
+    localStorage.setItem("show_ads","0")
+
+    if (localStorage.getItem("forced_cloak") == "false" || localStorage.getItem("forced_cloak") == null){
+      window.location = "force_cloak.html";
+    }
+    else{
+      window.location = "main.html"
+    }
+
+
+  </script>
+    
+</body>
+</html>

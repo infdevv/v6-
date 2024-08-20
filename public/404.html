@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Glitch - Home</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <style>body {overflow: none;}</style>
+    <link rel="stylesheet" type="text/css" href="scripts/css/global.css">
+</head>
+<body>
+    <div id="app">
+        <div id="toolbar">
+            <img src="assets/images/logo_trans.png" id="glitch-logo" alt="Glitch">
+            <div id="nav-links">
+                <div id="separator"></div>
+                <h3 onclick="window.location.href = 'main.html'">Home</h3>
+                <h3>/</h3>
+                <h3 onclick="window.location.href = 'apps.html'">Apps</h3>
+                <h3>/</h3>
+                <h3 onclick="window.location.href = 'discord.html'">Discord</h3>
+                <h3>/</h3>
+                <h3 onclick="window.location.href = 'settings.html'">Settings</h3>
+                <h3>|</h3>
+                <h3 id="time">hai</h3>
+            </div>
+            <script>
+                function updateTime() {
+    const timeElement = document.getElementById('time');
+    if (!timeElement) return;
+
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+
+    const timeStr = `${hours}:${minutesStr} ${ampm}`;
+    timeElement.textContent = timeStr;
+}
+
+setInterval(updateTime, 5000);
+updateTime(); 
+            </script>
+        </div>
+
+        <center style="left: calc(50% - 140px); bottom: 50%; position: fixed;">
+            <h1>This page don't exist </h1>
+            <h3> 404 - Not found</h3>
+        </center>
+    <script src="scripts/js/global.js"></script>
+</body>
+</html>

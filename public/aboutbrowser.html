@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Glitch - Browser</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="stylesheet" type="text/css" href="scripts/css/global.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    #content {
+      flex: 1;
+      display: flex;
+      justify-content: center; /* center the iframe horizontally */
+    }
+    iframe {
+      width: 90%;
+      border-radius: 15px;
+      height: 95%;
+      margin-bottom: 2%;
+      margin-top: 2px;
+      border: none;
+    }
+  </style>
+</head>
+<body>    
+  <div id="toolbar">
+    <img src="assets/images/logo_trans.png" id="glitch-logo" alt="Glitch">
+    <div id="nav-links">
+        <div id="separator"></div>
+        <h3 onclick="window.location.href = 'main.html'">Home</h3>
+        <h3>/</h3>
+        <h3 onclick="window.location.href = 'apps.html'">Apps</h3>
+        <h3>/</h3>
+        <h3 onclick="window.location.href = 'discord.html'">Discord</h3>
+        <h3>/</h3>
+        <h3 onclick="window.location.href = 'aboutbrowser.html'">Browser</h3>
+        <h3>/</h3>
+        <h3 onclick="window.location.href = 'settings.html'">Settings</h3>
+        <h3>|</h3>
+        <h3 id="time">hai</h3>
+    </div>
+    <script>
+        function updateTime() {
+const timeElement = document.getElementById('time');
+if (!timeElement) return;
+
+const now = new Date();
+let hours = now.getHours();
+const minutes = now.getMinutes();
+const ampm = hours >= 12 ? 'PM' : 'AM';
+
+hours = hours % 12;
+hours = hours ? hours : 12;
+const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+
+const timeStr = `${hours}:${minutesStr} ${ampm}`;
+timeElement.textContent = timeStr;
+}
+
+setInterval(updateTime, 5000);
+updateTime(); 
+    </script>
+</div>
+
+<div id="content">
+    <iframe src="/hardened" frameborder="0" scrolling="no" overflow="hidden"></iframe>
+  </div>
+  <script src="scripts/js/global.js"></script>
+</body>
+</html>

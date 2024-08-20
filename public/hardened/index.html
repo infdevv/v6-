@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Browser in your browser.">
+  
+  <!-- ******** CSS ******** -->
+  <link href="hardened/roboto.css" rel="stylesheet" type="text/css" />
+  <link href="hardened/style.css" rel="stylesheet" type="text/css" />
+  <link href="hardened/bookmarks.css" rel="stylesheet" type="text/css" />
+  <link href="hardened/chrome-tabs/css/chrome-tabs.css" rel="stylesheet" />
+  <link href="hardened/chrome-tabs/css/chrome-tabs-dark-theme.css" rel="stylesheet" />
+  <link href="hardened/material-symbols-outlined.css" rel="stylesheet" />
+  <!-- ******** JS ******** -->
+  <script src="hardened/helpers.js"></script>
+  <script src="hardened/override.js" defer></script>
+  <script src="hardened/libs/draggabilly.min.js"></script>
+  <script src="hardened/libs/filer.min.js"></script>
+  <script src="hardened/libs/jszip.min.js"></script>
+  <script src="hardened/libs/createhash-browser.min.js"></script>
+  <script src="hardened/libs/pbf.min.js"></script>
+  <script src="hardened/chrome-tabs/js/chrome-tabs.js"></script>
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
+  <script src="hardened/proxyHelpers.js"></script>
+  <script src="hardened/bookmarks.js"></script>
+  <script src="hardened/elementmap.js"></script>
+  <script src="hardened/settings.js"></script>
+  <script src="hardened/history.js"></script>
+  <script src="hardened/tab.js"></script>
+  <script src="hardened/google_color_palette.js"></script>
+  <script src="hardened/theme.js"></script>
+  <script src="hardened/plugin.js"></script>
+  <script src="hardened/extensions/injector/abstract.js"></script>
+  <script src="hardened/extensions/injector/dummy.js"></script>
+  <script src="hardened/extensions/injector/v2.js"></script>
+  <script src="hardened/extensions/injector/v3.js"></script>
+  <script src="hardened/extensions/crx3_protobuf.js"></script>
+  <script src="hardened/extensions/resources.js"></script>
+  <script src="hardened/extensions/extension.js"></script>
+  <script src="hardened/extensions/controller.js"></script>
+  <script src="hardened/browser.js"></script>
+  <script src="hardened/browser-api.js"></script>
+</head>
+
+<body onload="init(document.body);">
+  <div class="aboutbrowser-event-el" id="aboutbrowser-event-el"></div>
+  <div class="container browserContainer" style="visibility: hidden;">
+    <div class="browserControlsContainer">
+      <div class="chrome-tabs chrome-tabs-dark-theme" style="--tab-content-margin: 9px">
+        <div class="chrome-tabs-content-wrapper">
+          <button id="addtab" class="chrome-tabs-btn" data-add-tab style="position:absolute;">
+            <span class="material-symbols-outlined">add</span>
+          </button>
+          <div class="chrome-tabs-content">
+          </div>
+          <div class="chrome-tabs-content-after"></div>
+        </div>
+        <div class="chrome-tabs-bottom-bar"></div>
+        <div class="chrome-tabs-bottom-bar chrome-tabs-second-bottom-bar"></div>
+        <!-- Styles to prevent flash after JS initialization -->
+        <style>
+          .chrome-tabs .chrome-tab {
+            width: 258px
+          }
+
+          .chrome-tabs .chrome-tab:nth-child(1) {
+            transform: translate3d(0px, 0, 0)
+          }
+
+          .chrome-tabs .chrome-tab:nth-child(2) {
+            transform: translate3d(239px, 0, 0)
+          }
+        </style>
+      </div>
+      <div class="navbar">
+        <button class="navbarBtn" id="browserBack" onclick="window.aboutbrowser.handleBack()">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <button class="navbarBtn" id="browserForward" onclick="window.aboutbrowser.handleForward()">
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+        <button class="navbarBtn" id="browserReload" onclick="window.aboutbrowser.handleReload();">
+          <span class="material-symbols-outlined">refresh</span>
+        </button>
+        <input class="navbarUrl" id="browserUrl" autocomplete="off" autocapitalize="off" aria-label="Browser URL"></input>
+        <div class="bookmarksBtnWrapper">
+          <button class="navbarBtn bookmarksBtn" id="browserBookmarks" onclick="window.aboutbrowser.handleBookmarks();">
+            <span class="material-symbols-outlined">star</span>
+          </button>
+        </div>
+        <button class="navbarBtn" id="browserExtensions" onclick="window.aboutbrowser.handleExtensions();">
+          <span class="material-symbols-outlined">extension</span>
+        </button>
+        <button class="navbarBtn" id="browserpasswordmgr" onclick="window.aboutbrowser.handlePasswordManager();">
+          <span class="material-symbols-outlined">vpn_key</span>
+        </button>
+        
+        <button class="navbarBtn" id="browserpasswordmgr" onclick="window.aboutbrowser.handlePasswordManager();">
+          <span class="material-symbols-outlined">language</span>
+        </button>
+        <button class="navbarBtn" id="browserSettings" onclick="window.aboutbrowser.handleSettings();">
+          <span class="material-symbols-outlined">more_vert</span>
+        </button>
+      </div>
+      <div>
+        <div class="moreMenu hidden">
+          <center>
+            <button style="background-color: white; border-radius: 25px; line-height: 20px; width: 95%; color: black; display: flex; align-items: center; justify-content: center; padding: 5px;" onclick="localStorage.clear(); sessionStorage.clear(); document.cookie.split(';').forEach(cookie => document.cookie = cookie.split('=')[0] + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/'); location.reload();">
+              <span class="material-symbols-outlined menuIcon" style="margin-right: 10px;">
+                local_fire_department
+              </span>
+              <span class="title">Wipe Session</span>
+            </button>
+          </center>
+          
+
+          <div class="sep"></div>
+          <button onclick="window.aboutbrowser.handleSettingsCtxMenu('history');">
+            <span class="material-symbols-outlined menuIcon">history</span><span class="title">History</span>
+          </button>
+          <button onclick="window.aboutbrowser.handleSettingsCtxMenu('bookmarks');">
+            <span class="material-symbols-outlined menuIcon">bookmark</span><span class="title">Bookmarks</span>
+          </button>
+          <button onclick="localStorage.setItem('aboutbrowser_start_image',prompt('Enter the image URL'))">
+            <span class="material-symbols-outlined menuIcon">image</span><span class="title">Background Image</span>
+          
+          <button onclick="window.aboutbrowser.handleSettingsCtxMenu('devtools');">
+            <span class="material-symbols-outlined menuIcon">code</span><span class="title">Developer Tools</span>
+          </button>
+          <div class="sep"></div>
+          <button onclick="window.aboutbrowser.handleSettingsCtxMenu('about');">
+            <span class="menuIcon"><span class="placeholder"></span></span><span class="title">About ${name}</span>
+          </button>
+        </div>
+      </div>
+      <div class="bookmarksContainer"></div>
+    </div>
+    <script>
+      function show_alert_temp(message) {
+        
+         const popupElement = document.getElementById("popup_aboutbrowser");
+            if (popupElement) {
+                popupElement.style.display = "block";
+                const contentElement = popupElement.querySelector(".content");
+                if (contentElement) {
+                    contentElement.innerText = message;
+                } else {
+                    throw new Error("Content element not found");
+                }
+            } else {
+                throw new Error("Popup element not found");
+            }
+
+      }
+    </script>
+    <div id="popupHolder">
+
+      <div class="popup alert"  style="display: none;" id="popup_aboutbrowser">
+        <div class="title">This page says</div>
+        <div class="content"></div>
+        <div class="buttons"><button class="preferred" onclick="document.getElementById('popup_aboutbrowser').style.display = 'none'">OK</button></div>
+      </div>
+      <div class="popup prompt" style="display: none;">
+        <div class="title">This page says</div>
+        <div class="content"></div>
+        <input type="text"></input>
+        <div class="buttons"><button class="preferred">OK</button></div>
+      </div>
+      <div class="popup confirm" style="display: none;">
+        <div class="title">This page says</div>
+        <div class="content"></div>
+        <div class="buttons"><button>Cancel</button><button class="preferred">OK</button></div>
+      </div>
+    </div>
+    <div id="tabContents" class="browser"></div>
+    <div class="ctxMenuClickChecker" style="display:none;"></div>
+  </div>
+  <!-- 
+    <div class="goodbyeContainer" style="display:none;">
+    <h1>Goodbye!</h1>
+  </div>-->
+
+</body>
+
+</html>

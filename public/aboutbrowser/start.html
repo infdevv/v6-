@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>New Tab</title>
+    <link href="ui.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="robot.css" />
+    <link href="/roboto.css" rel="stylesheet" type=text/css />
+    <link rel="stylesheet" href="/material-symbols-outlined.css" />
+    <link rel="stylesheet" href="start.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div id="content">
+            <h1>Hardened AboutBrowser</h1>
+            <!--<input type="text" class="omnibox" autocomplete="off" placeholder="Search or type a URL" id="omnibox">-->
+            <div id="recentsWrapper"><div id="recents"></div></div>
+            <br>
+            <div class="selector">
+                <button class="option active" id="1" onclick="localStorage.setItem('aboutbrowser_mode_override','1')">Normal</button>
+                <button class="option" id="2" onclick="localStorage.setItem('aboutbrowser_mode_override','2')">Semi-Private</button>
+                <button class="option" id="3" onclick="localStorage.setItem('aboutbrowser_mode_override','3')">Private</button>
+            </div>
+
+        </div>
+        <div class="footerRight">
+            <div></div>
+                <span>Hardened AboutBrowser v0.1</span>
+            <br>
+            <br>
+                <button class="themedBtn" id="browserBack" onclick="openVerHistory();">
+                <span class="material-symbols-outlined">history</span>
+            </button>
+        </div>
+    </div>
+    <script src="/browser-api-tab.js"></script>
+    <script src="branding.js"></script>
+    <script src="start.js"></script>
+</body>
+
+</html>
