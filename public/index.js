@@ -1,3 +1,15 @@
+async function fetchGlitchDomains() {
+  try {
+      let response = await fetch("https://raw.githubusercontent.com/Glitch-Network/glitch_net_domains/main/db.txt");
+      let data = await response.text();
+      let domains = data.split("\n");
+  } catch (error) {
+      console.log("Glitch domains unavailable.");
+  }
+}
+
+fetchGlitchDomains();
+
 
 function search(input, template) {
   try {
@@ -93,6 +105,19 @@ function search(input, template) {
         if (!url.startsWith("https://")) {
           url = "https://" + url;
         }
+
+
+
+        // patch reddit
+        if (url.includes("https://reddit.com") || url.includes ("reddit.com")){ url = url.replace("reddit.com","l.opnxng.com")}
+        // handle glitch domains
+        for (let item in domains) {
+          if (domains[item].includes(url)) {
+            url = domains[item].split("|")[1];
+            console.log(domains[item].split("|")[1])
+          }
+        }
+
 
         // Apply the bridge if available
         if (bridge) {

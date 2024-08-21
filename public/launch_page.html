@@ -8,7 +8,7 @@
   <link rel="shortcut icon" content="favicon.ico" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="stylesheet" href="scripts/css/global.css" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@250" rel="stylesheet">
 
   <script src="uv/uv.bundle.js" defer></script>
   <script src="uv/uv.config.js" defer></script>
@@ -107,9 +107,10 @@ img {
 <body>
   <center>
     <div id="searchbar">
-      <span id="refresh" onclick="window.location.reload()" class="material-symbols-outlined" style="margin-right: 25px;   color: rgba(255, 255, 255, 1);" >refresh</span>
+      <span id="refresh" onclick="window.location.reload()" class="material-symbols-outlined" style="margin-right: 25px; color: black;">refresh</span>
       <input id="search" oninput="search()" placeholder="Input a URL or search..." type="search"/>
-
+      <span onclick="window.location = `launch_page.html?${url=document.getElementById('search').value}`" class="material-symbols-outlined" style="margin-left: 25px;">search</span>
+      
       
     </div>
     <div id="frames">
@@ -128,6 +129,11 @@ img {
     </center>
 
     <script>
+      typing = 0
+            document.getElementById("search").addEventListener("focusin",function(){typing=1})
+            document.getElementById("search").addEventListener("focusout",function(){typing=0})
+            
+
       function getURLParameter(name) {
           name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
           var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -164,17 +170,21 @@ img {
                     }
                 }, 500);
             };
-    
+
+            
             setTimeout(function(){
            setInterval(function(){
              try{
+               if (typing == 0){
                var frame = document.getElementById("uv-frame");
                x = frame.contentWindow.location.href
 
                x = Ultraviolet.codec.xor.decode(x.split("/uv/service/")[1]);
 
                if(x != document.getElementById("search").value){
+                
                  document.getElementById("search").value = x
+                }
                }
                
              }

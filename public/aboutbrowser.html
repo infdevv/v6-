@@ -72,6 +72,34 @@ updateTime();
 
 <div id="content">
     <iframe src="/hardened" frameborder="0" scrolling="no" overflow="hidden"></iframe>
+
+    <button style="position: fixed; bottom: 25px; right: 20px; width: 250px; height: 25px; padding: 25px; border-radius: 15px; background-color: rgb(51, 51, 51); border: none; color: white; font-size: 15px; line-height: 0%; cursor: pointer;" id="launch">Launch browser seperate</button>
+
+    <script>
+          document.getElementById("launch").addEventListener("click",function(){
+      function load() {
+        var x = "hardened";
+            var code = `
+                <head>
+                  <title>Google Slides</title>
+                  <link type="favicon" href="assets/favicons/classroom_favicon.png">
+                  </head>
+                
+                <body style="background-color: black">
+                <script src="scripts/js/global.js"><\/script>
+                <iframe src="` + x + `"   frameborder="0" style="position: fixed; left: -1; top: -1px; border: none; background-color: black; width: calc(100% + 1px);  height: calc(100% + 1px);"></iframe>
+                </body>
+            `;
+            var newWindow = window.open("about:blank", "_blank");
+            newWindow.document.write(code);
+            newWindow.document.body.style.backgroundColor = "black";
+            window.close();
+
+            }
+
+            load()
+    })
+    </script>
   </div>
   <script src="scripts/js/global.js"></script>
 </body>

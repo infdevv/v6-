@@ -52,6 +52,15 @@ fastify.register(fastifyStatic, {
     decorateReply: false,
 });
 
+fastify.get("/gdomain/", async (req, reply) => {
+    try {
+        const response = await fetch("https://raw.githubusercontent.com/Glitch-Network/glitch_net_domains/main/db.txt");
+        const data = await response.text();
+        reply.status(200).send(data);
+    } catch (error) {
+        reply.status(500).send({ error: "Failed to fetch the data" });
+    }
+});
 
 
 fastify.get('/vpn/*', (req, reply) => {
