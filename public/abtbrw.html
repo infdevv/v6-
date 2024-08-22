@@ -31,18 +31,39 @@
   </style>
 </head>
 <body>    
+   
   <div id="toolbar">
+    <style>
+        .material-symbols-outlined {
+            transition: background-color 0.3s, transform 0.3s;
+}
+
+.material-symbols-outlined:hover {
+  transition: transform 0.2s, box-shadow 0.2s; /* Smoother transitions */
+  transform: scale(1.15); /* Subtle scaling effect */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Deeper shadow on hover */
+}
+
+
+    </style>
     <img src="assets/images/logo_trans.png" id="glitch-logo" alt="Glitch">
     <div id="nav-links">
         <div id="separator"></div>
+        <span onclick="window.location.href = 'main.html'" class="material-symbols-outlined">home</span>
         <h3 onclick="window.location.href = 'main.html'">Home</h3>
-        <h3>/</h3>
+        <h3>/</h3> 
+        <span onclick="window.location.href = 'apps.html'" class="material-symbols-outlined">apps</span>
         <h3 onclick="window.location.href = 'apps.html'">Apps</h3>
         <h3>/</h3>
+        <span onclick="window.location.href = 'discord.html'" class="material-symbols-outlined">chat</span>
         <h3 onclick="window.location.href = 'discord.html'">Discord</h3>
         <h3>/</h3>
-        <h3 onclick="window.location.href = 'aboutbrowser.html'">Browser</h3>
+        
+        <span class="material-symbols-outlined"  onclick="window.location.href = 'abtbrw.html'">language</span>
+        <h3 onclick="window.location.href = 'abtbrw.html'">Browser</h3>
         <h3>/</h3>
+        
+        <span class="material-symbols-outlined"  onclick="window.location.href = 'settings.html'" style="font-variation-settings: filled;">settings</span>
         <h3 onclick="window.location.href = 'settings.html'">Settings</h3>
         <h3>|</h3>
         <h3 id="time">hai</h3>

@@ -9,9 +9,9 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="stylesheet" href="scripts/css/global.css" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@250" rel="stylesheet">
-
   <script src="uv/uv.bundle.js" defer></script>
   <script src="uv/uv.config.js" defer></script>
+
   <script src="index.js" defer></script>
   <style>
  body {
@@ -182,8 +182,11 @@ img {
                x = Ultraviolet.codec.xor.decode(x.split("/uv/service/")[1]);
 
                if(x != document.getElementById("search").value){
+
+                if (x != undefined && x != "undefined"){
                 
                  document.getElementById("search").value = x
+                }
                 }
                }
                

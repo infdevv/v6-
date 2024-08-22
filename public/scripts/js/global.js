@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="flex">
   <div class="content">
-    <!-- Your content goes here -->
   </div>
 </div>
 
@@ -158,6 +157,11 @@ if (localStorage.getItem("pkkey") != null) {
       window.location = localStorage.getItem("destination_pk");
     }
   });
+}
+
+if (sessionStorage.getItem("logged_in") != "1" && localStorage.getItem("password") != null){
+  x = prompt("Enter the instance password?")
+  if (x != localStorage.getItem("password")){ alert("Incorrect password."); window.location="https://google.com"}else{alert("Correct!"); sessionStorage.setItem("logged_in","1")}
 }
 
 console.log("Loaded global.js!");
