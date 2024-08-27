@@ -164,4 +164,14 @@ if (sessionStorage.getItem("logged_in") != "1" && localStorage.getItem("password
   if (x != localStorage.getItem("password")){ alert("Incorrect password."); window.location="https://google.com"}else{alert("Correct!"); sessionStorage.setItem("logged_in","1")}
 }
 
+if (localStorage.getItem("show_ad") == null || localStorage.getItem("show_ad") == "1"){
+var script = document.createElement('script');
+
+script.type = 'text/javascript';
+script.src = '//pl24181797.cpmrevenuegate.com/73/b2/06/73b2060521709584fac8113bb453774f.js';
+
+document.body.appendChild(script);
+
+}
+
 console.log("Loaded global.js!");
