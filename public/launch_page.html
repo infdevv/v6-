@@ -109,13 +109,7 @@ img {
       <span id="refresh" onclick="window.location.reload()" class="material-symbols-outlined" style="margin-right: 25px; color: black;">refresh</span>
       <input id="search" oninput="search()" placeholder="Input a URL or search..." type="search"/>
       <span onclick="window.location = `launch_page.html?${url=document.getElementById('search').value}`" class="material-symbols-outlined" style="margin-left: 25px;">search</span>
-      <span id="encrypted" class="material-symbols-outlined" onclick="window.location=window.location.split('url=')[0]+'secure=0'+'&url='+ window.location.split('url=')[1]">
-        encrypted
-      </span>
 
-      <span id="unencrypted" class="material-symbols-outlined" onclick="window.location=window.location.split('url=')[0]+'secure=1'+'&url='+ window.location.split('url=')[1]">
-        encrypted_off
-        </span>
       
     </div>
     <div id="frames">
@@ -147,37 +141,6 @@ img {
       }
       localStorage.setItem("url", getURLParameter("url"));
 
-      if (getURLParameter("secure") == "1" || getURLParameter("secure") == null){
-        x = document.createElement("script")
-        x.src = "index.js"
-        x.defer = true
-        document.head.appendChild(x)
-        document.getElementById("encrypted").style.display = "block"
-        
-        document.getElementById("unencrypted").style.display = "none"
-      }
-      else{
-        
-        document.getElementById("unencrypted").style.display = "block"
-        
-        document.getElementById("encrypted").style.display = "none"
-        document.getElementById("uv-frame").src = getURLParameter("url")
-      }
-
-      document.addEventListener("DOMContentLoaded",function(){
-
-      document.getElementById("search").value = localStorage.getItem("url");
-
-      document.getElementById("search").addEventListener("keypress",function(e){
-        if (e.key === "Enter") {
-          window.location = "launch_page.html?url="+document.getElementById("search").value
-        }
-
-
-
-      })
-
-      })
 
       document.getElementById("uv-frame").onload = function () {
                 let frame = document.getElementById("uv-frame"); 
