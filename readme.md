@@ -14,7 +14,6 @@ A free and swift unblocker.
 
 Features:
 
-- Miniplayer
 - 50+ Apps/games
 - Themes
 - Ai inetegreation with our own chatbots and A.I Teacher detection.
