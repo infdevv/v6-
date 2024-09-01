@@ -13,7 +13,6 @@
             overflow: hidden;
             background-color: #2c2c2c;
             color: #e0e0e0;
-            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
         }
@@ -112,6 +111,7 @@
 <body>
     <div id="tabs">
         <div class="create_tab" onclick="window.location.href='./main.html'"><span class="material-symbols-outlined">home</span></div>
+        <div class="create_tab" onclick="load_workspace()"><span class="material-symbols-outlined">upload_file</span></div>
         <div id="create_tab" onclick="createTab('New Tab', './start.html')">+</div>
     </div>
 
@@ -126,6 +126,52 @@
             const results = regex.exec(window.location.search);
             return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : '';
         }
+
+        function upload_workspace() {
+    return new Promise((resolve, reject) => {
+        // Create an input element dynamically
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.glitchworkspace'; // Restrict to .glitchworkspace files
+
+        // Listen for file selection
+        input.onchange = (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileContents = e.target.result;
+                    resolve(fileContents); // Resolve the promise with the file contents
+                };
+                reader.onerror = function(err) {
+                    reject(err); // Reject the promise if there's an error
+                };
+                reader.readAsText(file); // Read the file as text
+            } else {
+                reject(new Error('No file selected'));
+            }
+        };
+
+        // Trigger the file input dialog
+        input.click();
+    });
+}
+
+function load_workspace(){
+upload_workspace().then((contents) => {
+    x = contents.replace(" ","");
+    x = x.split("\n")
+    for (line in x){ // how the hell does this work in js
+        if (x[line] != ""){
+        console.log("loading "+"launch_page.html?url="+x[line])
+        createTab("Workspace Tab", "launch_page.html?url="+x[line])
+    }
+    }
+}).catch((error) => {
+    console.error('Error:', error);
+});
+}
+
 
         function createTab(name, url) {
             var tab = document.createElement("div");
@@ -186,15 +232,29 @@
                 `;
                 var last_title = frameTitle;
                 setInterval(function () {
-                    frameTitle = frame.contentDocument.title;
-                    if (frameTitle != last_title) {
-                        tab.innerHTML = `
-                            <p>${frameTitle}</p>
-                            <p class="close" onclick="removeTab('${tab.id}')">X</p>
-                        `;
-                        last_title = frameTitle;
-                    }
-                }, 500);
+    frameTitle = frame.contentDocument.title;
+
+    frameURL = frameTitle.split("|G|")[1]
+    frameTitle = frameTitle.split("|G|")[0]
+    // Cap the title length
+    const maxTitleLength = 30;
+    if (frameTitle.length > maxTitleLength) {
+        frameTitle = frameTitle.substring(0, maxTitleLength) + '...';
+    }
+
+    if (frameTitle != last_title) {
+        tab.innerHTML = `
+    <p style="display: flex; align-items: center;">
+        <img style="width: 20px; border-radius: 15px; margin-right: 10px;" src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=` + frameURL + `&size=553">
+        ${frameTitle}
+    </p>
+    <p class="close" style="display: inline-block; cursor: pointer;" onclick="removeTab('${tab.id}')">X</p>
+`;
+
+        last_title = frameTitle;
+    }
+}, 500);
+
             };
         }
 
@@ -212,6 +272,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             if (initialized === 0) {
                 var url = getURLParameter("url");
+                
                 if (url.includes(".onion") && localStorage.getItem("premium") === "1" && localStorage.getItem("tor") === "1") {
                     url = url.replace(".onion", "").replace("http://", "");
                     var new_tor_url = "https://onion.torry.io/main.php?url=" + url;
@@ -219,6 +280,9 @@
                 }
                 if (url) {
                     createTab("Home", "./launch_page.html?url=" + url);
+                }
+                else {
+                    createTab("New Tab", "start.html")
                 }
                 initialized = 1;
             }

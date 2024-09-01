@@ -159,6 +159,8 @@ if (localStorage.getItem("pkkey") != null) {
   });
 }
 
+
+
 if (sessionStorage.getItem("logged_in") != "1" && localStorage.getItem("password") != null){
   x = prompt("Enter the instance password?")
   if (x != localStorage.getItem("password")){ alert("Incorrect password."); window.location="https://google.com"}else{alert("Correct!"); sessionStorage.setItem("logged_in","1")}
@@ -166,7 +168,7 @@ if (sessionStorage.getItem("logged_in") != "1" && localStorage.getItem("password
 
 if (localStorage.getItem("hide_ad") == "1"){
   document.querySelectorAll('script').forEach(script => {
-    if (script.src.includes('//www.topcreativeformat.com/e17a0ee6656019085028f3a33b2a5424/invoke.js')) {
+    if (script.src.includes('https://udbaa.com/bnr.php?section=General&pub=594163&format=300x250&ga=g')) {
       script.remove();
     }
   });

@@ -15,6 +15,65 @@
   
   console.log("Fetching proxies...");
   
+
+
+  fastify.get('/region', async (req, reply) => {
+    const primaryUrl = 'https://ipapi.co/json/';
+    const backupUrl = 'http://ip-api.com/json/';
+
+    async function fetchPrimaryAPI() {
+        try {
+            const response = await fetch(primaryUrl);
+            if (!response.ok) {
+                throw new Error('Failed to fetch region data from primary API');
+            }
+            const data = await response.json();
+            return {
+                region: data.region,
+                country: data.country,
+                city: data.city,
+                full_name: data.country_name
+            };
+        } catch {
+            return null;
+        }
+    }
+
+    async function fetchBackupAPI() {
+        try {
+            const response = await fetch(backupUrl);
+            if (!response.ok) {
+                throw new Error('Failed to fetch region data from backup API');
+            }
+            const data = await response.json();
+            return {
+                region: data.regionName,
+                country: data.countryCode,
+                city: data.city,
+                full_name: data.country
+            };
+        } catch {
+            return null;
+        }
+    }
+
+    try {
+        let primaryData = await fetchPrimaryAPI();
+
+        if (!primaryData) {
+            primaryData = await fetchBackupAPI();
+        }
+
+        if (!primaryData) {
+            throw new Error('Both primary and backup APIs failed.');
+        }
+
+        reply.status(200).send(primaryData);
+    } catch {
+        reply.status(500).send({ error: 'Failed to fetch the region data' });
+    }
+});
+
   async function getProxies(url) {
       try {
           const response = await fetch(url);

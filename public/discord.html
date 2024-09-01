@@ -110,17 +110,28 @@ updateTime();
 
     <script>
           document.getElementById("launch").addEventListener("click",function(){
-      function load() {
-        var x = "/uv/service/hvtrs8%2F-e%2Cwkdeevbmt%2Cim%2Fahcnlens-100282371%3A822773314-10013%3B7553800192437";
+            function load() {
+        const presets = {
+  "Google Slides": "/assets/favicons/slides_favicon.png",
+  "Google": "/assets/favicons/google_favicon.png",
+  "I-Ready": "/assets/favicons/iready_favicon.png",
+  "Clever": "/assets/favicons/clever_favicon.png",
+  "FBI" : "https://www.fbi.gov/++theme++fbigov.theme/images/fbi_seal_new.png",
+  "Google Classroom" : "/assets/favicons/classroom_favicon.png",
+  "Github": "/assets/favicons/github_favicon.jpg",
+  "Wikipedia": "/assets/favicons/wiki_favicon.png"
+};
+
+preset = localStorage.getItem("autohide_preset") || "Google Classroom";
+
+        var x = "main.html";
             var code = `
                 <head>
-                  <title>Google Slides</title>
-                  <link type="favicon" href="assets/favicons/classroom_favicon.png">
-                  </head>
-                
+                  <title>`+preset+`</title>
+                  <link rel="icon" type="image/x-icon" href="`+ presets[preset] `+">
+                </head>
                 <body style="background-color: black">
-                <script src="scripts/js/global.js"><\/script>
-                <iframe src="` + x + `"   frameborder="0" style="position: fixed; left: -1; top: -1px; border: none; background-color: black; width: calc(100% + 1px);  height: calc(100% + 1px);"></iframe>
+                <iframe src="` + x + `" frameborder="0" style="position: fixed; inset: 0px; outline: none; border: none; height: 100%; width: 100%;"></iframe>
                 </body>
             `;
             var newWindow = window.open("about:blank", "_blank");
@@ -131,7 +142,7 @@ updateTime();
             }
 
             load()
-    })
+          })
     </script>
   </div>
   <script src="scripts/js/global.js"></script>

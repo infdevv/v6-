@@ -5,7 +5,7 @@ self.__dynamic$config = {
 	logLevel: 0,
 	bare: {
 		version: 2,
-		path: "/baremux/",
+		path: "/bare/",
 	},
 	tab: {
 		title: null,
