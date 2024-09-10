@@ -250,21 +250,75 @@ function updateProxy() {
 
 function save() {
     let data = "";
+
+    // Save localStorage items that contain "data"
     for (const [key, value] of Object.entries(localStorage)) {
         if (key.includes("data")) {
-            data += key + "=" + value + "\n";
+            data += `${key}=${value}\n`;
         }
     }
 
-    const blob = new Blob([btoa(data)], { type: "text/plain;charset=utf-8" });
+    // Save cookies
+    const cookies = document.cookie.split("; ");
+    for (const cookie of cookies) {
+        data += `cookie:${cookie}\n`;
+    }
+
+    // Create a blob with the data (without btoa)
+    const blob = new Blob([data], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "data.glitch";
+    a.download = "data.glitch"; // Force .glitch file extension
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+}
+
+function load() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".glitch"; // Accept only .glitch files
+
+    input.addEventListener("change", function () {
+        const file = input.files[0];
+        if (!file) return;
+
+        // Check if the file extension is .glitch
+        if (file.name.split('.').pop() !== 'glitch') {
+            alert("Please upload a valid .glitch file.");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const lines = event.target.result.split("\n");
+
+            // Loop through each line and process localStorage or cookies
+            lines.forEach(line => {
+                if (!line.trim()) return; // Skip empty lines
+
+                if (line.startsWith("cookie:")) {
+                    // Load cookie
+                    const cookieData = line.substring(7); // Remove "cookie:" prefix
+                    document.cookie = cookieData;
+                } else {
+                    // Load localStorage item
+                    const [key, value] = line.split("=");
+                    if (key && value) {
+                        localStorage.setItem(key, value);
+                    }
+                }
+            });
+
+            alert("Data loaded successfully!");
+        };
+
+        reader.readAsText(file); // Read file as plain text
+    });
+
+    input.click();
 }
 
 function toggle(target) {

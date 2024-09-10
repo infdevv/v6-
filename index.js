@@ -8,7 +8,7 @@
   const fastifyStatic = require('@fastify/static');
   const { join } = require('path');
   const httpProxy = require('http-proxy');
-  
+  const { uvPath } = require("@titaniumnetwork-dev/ultraviolet-v2");
   const bare = createBareServer('/bare/');
   const fastify = Fastify();
   const proxyServer = httpProxy.createProxyServer();
@@ -108,6 +108,12 @@
       prefix: '/',
       decorateReply: false,
   });
+
+  fastify.register(fastifyStatic, {
+    root: uvPath,
+    prefix: '/uv/',
+    decorateReply: false,
+});
   
   fastify.get("/gdomain/", async (req, reply) => {
       try {

@@ -122,22 +122,12 @@ updateTime();
 
     let preset = localStorage.getItem("autohide_preset") || "Google Classroom";
 
-    let x = "main.html";
-    let code = `
-        <head>
-          <title>${preset}</title>
-          <link rel="icon" type="image/x-icon" href="${presets[preset]}">
-        </head>
-        <body style="background-color: black">
-          <iframe src="${x}" frameborder="0" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>
-        </body>
-    `;
+    let x = window.location.replace("abtbrw.html","") + "hardened/";
+    newWindow = window.open("", "newWindow", "width=1800, height=1600");
+  newWindow.document.write('<iframe src="'+ x +'" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>');
 
-    let newWindow = window.open("about:blank", "_blank");
-    newWindow.document.write(code);
-    newWindow.document.close(); // Ensure the document is complete and can be rendered
-    newWindow.document.body.style.backgroundColor = "black";
-    window.close();
+    
+    window.location = "https://google.com"
 }
 
 load();

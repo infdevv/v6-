@@ -18,15 +18,15 @@ document.addEventListener("DOMContentLoaded", function() {
     flex-direction: column;
     height: 100vh;
   }
-  
-  .flex { /*Flexbox for containers*/
+
+  .flex {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end; /* Aligns items at the bottom of the container */
     text-align: center;
-    flex: 1; /* Ensure this flex container takes up the remaining space */
+    flex: 1;
   }
-  
+
   .waves {
     position: fixed;
     bottom: 0;
@@ -36,32 +36,56 @@ document.addEventListener("DOMContentLoaded", function() {
     min-height: 100px;
     max-height: 150px;
   }
-  
+
   .content {
     text-align: center;
-    background-color: white;
+    position: relative;
+    width: 100%; /* Ensures content takes up full width */
   }
-  
-  /* Animation */
+
+  .otter {
+    position: fixed; 
+    bottom:8%; /* Positions the otter 20% from the bottom */
+	 z-index: -20;
+    left: 10%; /* Centers the otter horizontally */
+    transform: translateX(-50%); /* Adjusts the horizontal centering */
+    width: 100px; /* Resizes the otter to 50px */
+    animation: bobbing 3s ease-in-out infinite;
+  }
+
+  @keyframes bobbing {
+    0%, 100% {
+      transform: translate(-50%, 0);
+    }
+    50% {
+      transform: translate(-50%, 10px);
+    }
+  }
+
   .parallax > use {
     animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
   }
+
   .parallax > use:nth-child(1) {
     animation-delay: -2s;
     animation-duration: 7s;
   }
+
   .parallax > use:nth-child(2) {
     animation-delay: -3s;
     animation-duration: 10s;
   }
+
   .parallax > use:nth-child(3) {
     animation-delay: -4s;
     animation-duration: 13s;
   }
+
   .parallax > use:nth-child(4) {
     animation-delay: -5s;
     animation-duration: 20s;
   }
+
   @keyframes move-forever {
     0% {
       transform: translate3d(-90px, 0, 0);
@@ -70,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
       transform: translate3d(85px, 0, 0);
     }
   }
-  /*Shrinking for mobile*/
+
   @media (max-width: 768px) {
     .waves {
       height: 40px;
@@ -81,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="flex">
   <div class="content">
+    <img src="https://media.tenor.com/0lMxJdfRFScAAAAi/otter-animated-otter.gif" alt="Otter GIF" class="otter">
   </div>
 </div>
 
@@ -96,6 +121,7 @@ viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
     <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
   </g>
 </svg>
+
 
 <!-- credit to https://codepen.io/goodkatz/pen/LYPGxQz just in case i forget to add a credits page later -->`;
 

@@ -11,11 +11,124 @@
     <style>body {overflow: hidden;}</style>
 
     <link rel="stylesheet" type="text/css" href="scripts/css/global.css">
+    <
 </head>
 <body>
     <div id="app">
         <div id="toolbar">
             <style>
+
+
+#modal-wrapper {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.2);
+	text-align: center;
+	padding-top: 30px;
+	opacity: 0;
+	transition: 0.5s ease all;
+	z-index: 99999;
+}
+
+#modal-wrapper.active {
+	opacity: 1;
+}
+
+#modal-wrapper.active #modal-confirmation {
+	margin-top: 0;
+	opacity: 1;
+}
+
+#modal-confirmation {
+	display: inline-block;
+	margin-top: -30px;
+	opacity: 0;
+	max-width: 400px;
+	border-radius: 4px;
+	overflow: hidden;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+	background: #fff;
+	text-align: left;
+	transition: 0.5s ease all;
+}
+
+#modal-header {
+	position: relative;
+	background: #ff6b6b;
+	padding: 15px;
+	color: #fff;
+	text-align: left;
+}
+
+#modal-header h3 {
+	font-weight: 300;
+	margin: 0;
+}
+
+#modal-close {
+	position: absolute;
+	right: 15px;
+	top: 12px;
+	font-size: 1.5em;
+	cursor: pointer;
+	color: #bd3d3d;
+}
+
+#modal-close:hover {
+	color: #fff;
+}
+
+#modal-content {
+	padding: 30px 15px;
+}
+
+#modal-content p {
+	margin: 0;
+	color: #61686e;
+}
+
+#modal-buttons {
+	padding: 0 15px 15px 15px;
+	text-align: right;
+}
+
+#modal-button-no {
+	border: 2px solid #98a1a9;
+	padding: 10px 30px;
+	background: #fff;
+	color: #98a1a9;
+	font-weight: bold;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.5s ease all;
+}
+
+#modal-button-no:hover {
+	background: #98a1a9;
+	color: #fff;
+}
+
+#modal-button-yes {
+	border: 2px solid #ff6b6b;
+	padding: 10px 50px;
+	background: #ff6b6b;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.5s ease all;
+	margin-left: 10px;
+}
+
+#modal-button-yes:hover {
+	border: 2px solid #ff4242;
+	background: #ff4242;
+}
                 .material-symbols-outlined {
                     transition: background-color 0.3s, transform 0.3s;
         }
@@ -63,20 +176,7 @@
                 <h3 id="time">hai</h3>
             </div>
             <script>
-
-document.addEventListener("DOMContentLoaded", async () => {
-    
-    try {
-      await navigator.serviceWorker.register('/sw.js');
-      console.log("Registered!")
-    } catch (err) {
-      console.warn("Failed to register service worker:", err);
-    }
-
-
-  });
-
-                function updateTime() {
+            function updateTime() {
         const timeElement = document.getElementById('time');
         if (!timeElement) return;
         
@@ -142,6 +242,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <button id="cloak" class="main_button">Cloak</button>
             <button class="main_button" onclick="window.location='https://discord.gg/mWGtwnyjgK'">Join the Discord</button>   
             <button class="main_button" onclick="window.location='contributers.html'">Contributers</button>   
+            <button class="main_button" onclick="load_dex()">Dextensify</button>   
             <br>
             <br>
             <center>
@@ -173,8 +274,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     </div>
 
     <script>
-            document.getElementById("cloak").addEventListener("click",function(){
-              function load() {
+
+                    function load() {
     const presets = {
         "Google Slides": "/assets/favicons/slides_favicon.png",
         "Google": "/assets/favicons/google_favicon.png",
@@ -189,27 +290,52 @@ document.addEventListener("DOMContentLoaded", async () => {
     let preset = localStorage.getItem("autohide_preset") || "Google Classroom";
 
     let x = "main.html";
-    let code = `
-        <head>
-          <title>${preset}</title>
-          <link rel="icon" type="image/x-icon" href="${presets[preset]}">
-        </head>
-        <body style="background-color: black">
-          <iframe src="${x}" frameborder="0" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>
-        </body>
-    `;
+    newWindow = window.open("", "newWindow", "width=1800, height=1600");
+    var newWin = window.open(url);             
 
-    let newWindow = window.open("about:blank", "_blank");
-    newWindow.document.write(code);
-    newWindow.document.close(); // Ensure the document is complete and can be rendered
-    newWindow.document.body.style.backgroundColor = "black";
-    window.close();
+if(!newWin || newWin.closed || typeof newWin.closed=='undefined') 
+{ 
+    alert("Please allow popups by using the button in the URL bar. This will allow this link to last longer without being blocked and to stay out of your search history")
 }
+  newWindow.document.write('<iframe src="'+ x +'" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>');
+
+    
+    window.location = "https://google.com"
+}
+
+
+load()
+         
+
+
+
+            document.getElementById("cloak").addEventListener("click",function(){
 
 load();
 
 
     })
+    function load_dex() {
+    const presets = {
+        "Google Slides": "/assets/favicons/slides_favicon.png",
+        "Google": "/assets/favicons/google_favicon.png",
+        "I-Ready": "/assets/favicons/iready_favicon.png",
+        "Clever": "/assets/favicons/clever_favicon.png",
+        "FBI": "https://www.fbi.gov/++theme++fbigov.theme/images/fbi_seal_new.png",
+        "Google Classroom": "/assets/favicons/classroom_favicon.png",
+        "Github": "/assets/favicons/github_favicon.jpg",
+        "Wikipedia": "/assets/favicons/wiki_favicon.png"
+    };
+
+    let preset = localStorage.getItem("autohide_preset") || "Google Classroom";
+
+    let x = "features/dexten.html";
+    newWindow = window.open(x);
+  newWindow.document.write('<iframe src="'+ x +'" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>');
+
+    
+}
+
 
         document.addEventListener("DOMContentLoaded", function() {
             document.addEventListener("keypress", function(e) {
