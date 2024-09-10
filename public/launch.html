@@ -246,9 +246,15 @@ upload_workspace().then((contents) => {
     }
 
     if (frameTitle != last_title) {
+        if (frameURL == ""){
+            url1 = "assets/images/darkfavi.png"
+        }
+        else {
+            url1 = "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + frameURL 
+        }
         tab.innerHTML = `
     <p style="display: flex; align-items: center;">
-        <img style="width: 20px; border-radius: 15px; margin-right: 10px;" src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=` + frameURL + `&size=553">
+        <img style="width: 20px; border-radius: 15px; margin-right: 10px;" src="`+url1+`" &size=553">
         ${frameTitle}
     </p>
     <p class="close" style="display: inline-block; cursor: pointer;" onclick="removeTab('${tab.id}')">X</p>

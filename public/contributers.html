@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Glitch - Contributers</title>
@@ -9,22 +9,36 @@
             background-color: black;
             color: white;
             font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            font-family: 'Trebuchet MS', sans-serif;
         }
 
         #content {
-            display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 20px;
-            border-radius: 10px;
+            margin: 0 auto;
+            max-width: 1200px;
         }
 
         .contributer {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
             border-radius: 10px;
             margin: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .contributer:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
         }
 
         .contributer img {
@@ -47,50 +61,116 @@
             color: #3498db;
         }
 
+        /* Honorable Mention Styling */
+        hr {
+            border: 0;
+            height: 2px;
+            background: gold;
+            margin: 20px auto;
+            width: 50%;
+        }
+
+        h2.honorable {
+            color: gold;
+            text-decoration: underline;
+            text-shadow: 0 0 10px gold;
+            margin-top: 30px;
+        }
+
+        /* Memorial Section Styling */
+        .memorial {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.5), rgba(255, 215, 0, 0.2));
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        .memorial h2 {
+            color: gold;
+            font-size: 2rem;
+            text-shadow: 0 0 15px gold;
+            margin-bottom: 10px;
+            animation: glow 2s infinite alternate;
+        }
+
+        .memorial p {
+            color: lightgray;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .memorial img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Glow Animation */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold;
+            }
+            to {
+                text-shadow: 0 0 20px gold, 0 0 30px gold, 0 0 40px gold;
+            }
+        }
+
+        /* Footer Link Styling */
+        h2 a {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        h2 a:hover {
+            color: #3498db;
+        }
+
     </style>
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <link rel="stylesheet" href="stars.css"/>
+    <script src="register-sw.js" defer></script>
 
-        <script src="register-sw.js" defer></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-278K4F012J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-278K4F012J"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-278K4F012J');
-</script>
-
+      gtag('config', 'G-278K4F012J');
+    </script>
 </head>
 <body>
     <center>
         <h1>Contributers</h1>
-        <div class="main"></div>
-        </
         <div id="content">
-          
-
             <div class="contributer">
-                <img src="https://cdn.discordapp.com/avatars/1123056675054702644/6907b306d736cb52bc55a5086cc91ef6.png" />
+                <img src="assets/images/minion.png" />
                 <h2>Minionfan105</h2>
             </div>
-
-            <hr>
-            <h2 style="color:gold; text-decoration: underline; text-shadow: 0 0 10px gold;">Honorable Mention</h2>
-            <div class="contributer">
-                <img src="https://cdn.discordapp.com/avatars/1202216473423253544/6cebd7e0ae7dabf1f1642121e8fb96b2.png" />
+<br>
+    <h2 class="honorable">Honorable Mention</h2>
+    <br>
+    <div class="contributer">
+                <img src="assets/images/infamy.png" />
                 <h2>Infamy / Enterheadlines</h2>
-             
             </div>
         </div>
-        <h2><a style="text-decoration: none; color: white; cursor: pointer;" href="./main.html">Go back to home</a></h2>
+        
+        <h2><a href="./main.html">Go back to home</a></h2>
+
+        <div class="memorial">
+            <h2> Ok_criticism </h2>
+            <p>The god of being 𝓯𝓻𝓮𝓪𝓴𝔂 ( and funny ). Rest in peace </p>
+            <p>??? - 2024</p>
+            <img src="assets/images/crit.png" alt="Ok_criticism">
+        </div>
     </center>
-
-
 </body>
-
 </html>
