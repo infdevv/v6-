@@ -290,14 +290,14 @@
     let preset = localStorage.getItem("autohide_preset") || "Google Classroom";
 
     let x = "main.html";
-    newWindow = window.open("", "newWindow", "width=1800, height=1600");
-    var newWin = window.open(url);             
+    newWin = window.open("", "newWindow", "width=1800, height=1600");
+    newWin.document.write('<iframe src="'+ x +'" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>');
+          
 
 if(!newWin || newWin.closed || typeof newWin.closed=='undefined') 
 { 
     alert("Please allow popups by using the button in the URL bar. This will allow this link to last longer without being blocked and to stay out of your search history")
 }
-  newWindow.document.write('<iframe src="'+ x +'" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>');
 
     
     window.location = "https://google.com"
