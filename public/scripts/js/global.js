@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="flex">
   <div class="content">
-    <img src="https://media.tenor.com/0lMxJdfRFScAAAAi/otter-animated-otter.gif" alt="Otter GIF" class="otter">
+    <img src="assets/images/otter-animated-otter.gif" alt="Otter GIF" class="otter">
   </div>
 </div>
 
