@@ -133,6 +133,19 @@
   </script>
 </head>
 <body>
+  <script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    
+      try {
+        await navigator.serviceWorker.register('/sw.js');
+        console.log("Registered!")
+      } catch (err) {
+        console.warn("Failed to register service worker:", err);
+      }
+
+
+    });
+</script>
   <div id="searchbar">
     <span id="refresh" onclick="location.reload()" class="material-symbols-outlined" style="margin-right: 25px; color: black;">refresh</span>
     <input id="search" oninput="search()" placeholder="Input a URL or search..." type="search"/>
@@ -173,7 +186,17 @@
       <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden">
       <input id="uv-address" type="hidden">
     </form>
-    <iframe id="uv-frame"></iframe>
+    <iframe id="uv-frame"><script>document.addEventListener("DOMContentLoaded", async () => {
+    
+      try {
+        await navigator.serviceWorker.register('/sw.js');
+        console.log("Registered!")
+      } catch (err) {
+        console.warn("Failed to register service worker:", err);
+      }
+
+
+    });</script></iframe>
   </div>
 
   <script>
@@ -218,17 +241,7 @@ let suggestions = [];
       }
 
     
-document.addEventListener("DOMContentLoaded", async () => {
-    
-      try {
-        await navigator.serviceWorker.register('/sw.js');
-        console.log("Registered!")
-      } catch (err) {
-        console.warn("Failed to register service worker:", err);
-      }
 
-
-    });
 
 async function set_flags() {
   if (premium_status && proxy_bridge && !proxy_bridge.includes("None")) {
