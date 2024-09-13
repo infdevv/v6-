@@ -10,8 +10,15 @@
     <link rel="icon" href="assets/favicon.png" type="image/png">
     <style>body {overflow: hidden;}</style>
 
+    <script>
+      document.addEventListener("DOMContentLoaded",async function(){
+        await navigator.serviceWorker.register('/sw.js');
+      })
+
+    </script>
+
     <link rel="stylesheet" type="text/css" href="scripts/css/global.css">
-    <
+    
 </head>
 <body>
     <div id="app">

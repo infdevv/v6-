@@ -321,8 +321,8 @@ set_flags()
         if (!typing) {
           try {
             const frame = document.getElementById("uv-frame");
-            
-            const decodedUrl = Ultraviolet.codec.xor.decode(frame.contentWindow.location.href.split("/search/")[1]);
+          
+            const decodedUrl = __uv$config.decodeUrl(frame.contentWindow.location.href.split("/search/")[1]);
            
             if (decodedUrl && decodedUrl !== document.getElementById("search").value) {
               document.getElementById("search").value = decodedUrl;
