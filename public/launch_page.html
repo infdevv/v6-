@@ -338,7 +338,7 @@ set_flags()
           try {
             const frame = document.getElementById("uv-frame");
           
-            const decodedUrl = __uv$config.decodeUrl(frame.contentWindow.location.href.split("/search/")[1]);
+            const decodedUrl = __uv$config.decodeUrl(frame.contentWindow.location.href.split("/service/")[1]);
            
             if (decodedUrl && decodedUrl !== document.getElementById("search").value) {
               document.getElementById("search").value = decodedUrl;
