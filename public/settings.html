@@ -211,11 +211,267 @@
 
         <hr>
 
+        <section id="theme-settings">
+    <h4>Select Theme</h4>
+    <select id="theme-selector">
+        <option value="null" selected>Default Theme</option>
+        <option value="Mocha">Mocha Theme</option>
+        <option value="OceanBreeze">Ocean Breeze Theme</option>
+        <option value="NeonNight">Neon Night Theme</option>
+        <option value="VintageRose">Vintage Rose Theme</option>
+        <option value="ForestGreen">Forest Green Theme</option>
+        <option value="SandyBeach">Sandy Beach Theme</option>
+        <option value="ArcticChill">Arctic Chill Theme</option>
+        <option value="SunsetOrange">Sunset Orange Theme</option>
+        <option value="MidnightBlue">Midnight Blue Theme</option>
+        <option value="TwilightPurple" id="premium-theme">Premium Purple Theme</option>
+    </select>
+</section>
+
+<script>
+    if (localStorage.getItem("premium") != "1"){
+        document.getElementById("premium-theme").style.display="none"
+    }
+    const themes = {
+    // Mocha Theme
+    Mocha: {
+        backgroundColorMain: '#F3E5AB',
+        backgroundColorToolbar: '#8B4513',
+        textColor: '#4B2E83',
+        toolbarHeight: '60px',
+        toolbarRadius: '10px',
+        toolbarHorizontalPadding: '15px',
+        gradientBackground: 'linear-gradient(to bottom, #A0522D, #F3E5AB)',
+        toolbarBorderColor: '#A0522D',
+        navLinkHoverShadow: '0px 4px 15px rgba(0,0,0,0.2)',
+        navLinkHoverTransform: 'scale(1.05)',
+        buttonBackgroundColor: '#D2691E',
+        buttonHoverColor: '#A0522D'
+    },
+
+    // Ocean Breeze Theme
+    OceanBreeze: {
+        backgroundColorMain: '#A0D9FF',
+        backgroundColorToolbar: '#004D73',
+        textColor: '#FFFFFF',
+        toolbarHeight: '70px',
+        toolbarRadius: '5px',
+        toolbarHorizontalPadding: '20px',
+        gradientBackground: 'linear-gradient(to bottom, #004D73, #A0D9FF)',
+        toolbarBorderColor: '#003850',
+        navLinkHoverShadow: '0px 4px 10px rgba(255, 255, 255, 0.3)',
+        navLinkHoverTransform: 'scale(1.1)',
+        buttonBackgroundColor: '#007BA7',
+        buttonHoverColor: '#005870'
+    },
+
+    // Neon Night Theme
+    NeonNight: {
+        backgroundColorMain: '#000000',
+        backgroundColorToolbar: '#1F1F1F',
+        textColor: '#00FF00',
+        toolbarHeight: '55px',
+        toolbarRadius: '8px',
+        toolbarHorizontalPadding: '10px',
+        gradientBackground: 'linear-gradient(to bottom, #0D0D0D, #2E2E2E)',
+        toolbarBorderColor: '#00FF00',
+        navLinkHoverShadow: '0px 6px 15px rgba(0,255,0,0.8)',
+        navLinkHoverTransform: 'scale(1.2)',
+        buttonBackgroundColor: '#00FF00',
+        buttonHoverColor: '#33FF33'
+    },
+
+    // Vintage Rose Theme
+    VintageRose: {
+        backgroundColorMain: '#F9E4E4',
+        backgroundColorToolbar: '#D0A6A6',
+        textColor: '#6D3F3F',
+        toolbarHeight: '60px',
+        toolbarRadius: '12px',
+        toolbarHorizontalPadding: '15px',
+        gradientBackground: 'linear-gradient(to bottom, #D0A6A6, #F9E4E4)',
+        toolbarBorderColor: '#B94D6C',
+        navLinkHoverShadow: '0px 4px 12px rgba(0,0,0,0.3)',
+        navLinkHoverTransform: 'scale(1.05)',
+        buttonBackgroundColor: '#B94D6C',
+        buttonHoverColor: '#D0A6A6'
+    },
+
+    // Forest Green Theme
+    ForestGreen: {
+        backgroundColorMain: '#E8F5E9',
+        backgroundColorToolbar: '#2E7D32',
+        textColor: '#1B5E20',
+        toolbarHeight: '65px',
+        toolbarRadius: '10px',
+        toolbarHorizontalPadding: '18px',
+        gradientBackground: 'linear-gradient(to bottom, #2E7D32, #E8F5E9)',
+        toolbarBorderColor: '#1B5E20',
+        navLinkHoverShadow: '0px 4px 10px rgba(0,0,0,0.2)',
+        navLinkHoverTransform: 'scale(1.08)',
+        buttonBackgroundColor: '#1B5E20',
+        buttonHoverColor: '#2E7D32'
+    },
+
+    // Twilight Purple Theme
+    TwilightPurple: {
+        backgroundColorMain: '#EDE7F6',
+        backgroundColorToolbar: '#6A1B9A',
+        textColor: '#AB47BC',
+        toolbarHeight: '70px',
+        toolbarRadius: '10px',
+        toolbarHorizontalPadding: '20px',
+        gradientBackground: 'linear-gradient(to bottom, #6A1B9A, #EDE7F6)',
+        toolbarBorderColor: '#AB47BC',
+        navLinkHoverShadow: '0px 4px 12px rgba(0,0,0,0.3)',
+        navLinkHoverTransform: 'scale(1.1)',
+        buttonBackgroundColor: '#AB47BC',
+        buttonHoverColor: '#6A1B9A'
+    },
+
+    // Sandy Beach Theme
+    SandyBeach: {
+        backgroundColorMain: '#FFF3E0',
+        backgroundColorToolbar: '#FFAB91',
+        textColor: '#BF360C',
+        toolbarHeight: '60px',
+        toolbarRadius: '8px',
+        toolbarHorizontalPadding: '15px',
+        gradientBackground: 'linear-gradient(to bottom, #FFAB91, #FFF3E0)',
+        toolbarBorderColor: '#BF360C',
+        navLinkHoverShadow: '0px 4px 10px rgba(0,0,0,0.2)',
+        navLinkHoverTransform: 'scale(1.05)',
+        buttonBackgroundColor: '#BF360C',
+        buttonHoverColor: '#FFAB91'
+    },
+
+    // Arctic Chill Theme
+    ArcticChill: {
+        backgroundColorMain: '#E1F5FE',
+        backgroundColorToolbar: '#0288D1',
+        textColor: '#0277BD',
+        toolbarHeight: '65px',
+        toolbarRadius: '12px',
+        toolbarHorizontalPadding: '20px',
+        gradientBackground: 'linear-gradient(to bottom, #0288D1, #E1F5FE)',
+        toolbarBorderColor: '#0277BD',
+        navLinkHoverShadow: '0px 4px 12px rgba(0,0,0,0.2)',
+        navLinkHoverTransform: 'scale(1.07)',
+        buttonBackgroundColor: '#0277BD',
+        buttonHoverColor: '#0288D1'
+    },
+
+    // Sunset Orange Theme
+    SunsetOrange: {
+        backgroundColorMain: '#FFEBEE',
+        backgroundColorToolbar: '#FF7043',
+        textColor: '#BF360C',
+        toolbarHeight: '70px',
+        toolbarRadius: '10px',
+        toolbarHorizontalPadding: '15px',
+        gradientBackground: 'linear-gradient(to bottom, #FF7043, #FFEBEE)',
+        toolbarBorderColor: '#BF360C',
+        navLinkHoverShadow: '0px 4px 12px rgba(0,0,0,0.2)',
+        navLinkHoverTransform: 'scale(1.1)',
+        buttonBackgroundColor: '#BF360C',
+        buttonHoverColor: '#FF7043'
+    },
+
+    // Midnight Blue Theme
+    MidnightBlue: {
+        backgroundColorMain: '#001F3F',
+        backgroundColorToolbar: '#003366',
+        textColor: '#E0E0E0',
+        toolbarHeight: '55px',
+        toolbarRadius: '8px',
+        toolbarHorizontalPadding: '10px',
+        gradientBackground: 'linear-gradient(to bottom, #003366, #001F3F)',
+        toolbarBorderColor: '#003366',
+        navLinkHoverShadow: '0px 4px 10px rgba(255,255,255,0.3)',
+        navLinkHoverTransform: 'scale(1.05)',
+        buttonBackgroundColor: '#003366',
+        buttonHoverColor: '#00264D'
+    }
+};
+
+    // Function to handle theme selection
+    const themeSelector = document.getElementById('theme-selector');
+    themeSelector.addEventListener('change', (event) => {
+        const selectedTheme = event.target.value;
+
+        // Update styles using the selected theme
+        updateStyles(themes[selectedTheme]);
+
+        // Store the selected theme name in localStorage
+        localStorage.setItem('theme', selectedTheme);
+    });
+
+    // Function from your code to update styles
+    function updateStyles(config) {
+        if (config.backgroundColorMain) {
+            document.documentElement.style.setProperty('--background-color-main', config.backgroundColorMain);
+        }
+        if (config.backgroundColorToolbar) {
+            document.documentElement.style.setProperty('--background-color-toolbar', config.backgroundColorToolbar);
+        }
+        if (config.textColor) {
+            document.documentElement.style.setProperty('--text-color', config.textColor);
+        }
+        if (config.toolbarTop) {
+            document.documentElement.style.setProperty('--toolbar-top', config.toolbarTop);
+        }
+        if (config.toolbarHeight) {
+            document.documentElement.style.setProperty('--toolbar-height', config.toolbarHeight);
+        }
+        if (config.toolbarRadius) {
+            document.documentElement.style.setProperty('--toolbar-radius', config.toolbarRadius);
+        }
+        if (config.toolbarHorizontalPadding) {
+            document.documentElement.style.setProperty('--toolbar-horizontal-padding', config.toolbarHorizontalPadding);
+        }
+        if (config.gradientBackground) {
+            document.body.style.background = config.gradientBackground;
+        }
+
+        const toolbar = document.querySelector('#toolbar');
+        if (config.toolbarBorderColor) {
+            toolbar.style.borderColor = config.toolbarBorderColor;
+        }
+
+        const navLinks = document.querySelectorAll('#nav-links h3');
+        navLinks.forEach(link => {
+            if (config.navLinkHoverShadow) {
+                link.addEventListener('mouseover', () => {
+                    link.style.boxShadow = config.navLinkHoverShadow;
+                });
+            }
+            if (config.navLinkHoverTransform) {
+                link.addEventListener('mouseover', () => {
+                    link.style.transform = config.navLinkHoverTransform;
+                });
+            }
+        });
+
+        const buttons = document.querySelectorAll('.main_button');
+        buttons.forEach(button => {
+            if (config.buttonBackgroundColor) {
+                button.style.backgroundColor = config.buttonBackgroundColor;
+            }
+            if (config.buttonHoverColor) {
+                button.addEventListener('mouseover', () => {
+                    button.style.backgroundColor = config.buttonHoverColor;
+                });
+            }
+        });
+    }
+</script>
+
+
         <section id="search-engine-settings">
-            <h4>Search Engine</h4>
+            <h4>Theme</h4>
             <select id="engine">
-                <option value="Google" selected>Google (default)</option>
-                <option value="DuckDuckGo">DuckDuckGo</option>
+                <option value="DuckDuckGo" selected>DuckDuckGo (default)</option>
+                <option value="Google">Google</option>
                 <option value="Bing">Bing</option>
                 <option value="Yahoo">Yahoo</option>
             </select>

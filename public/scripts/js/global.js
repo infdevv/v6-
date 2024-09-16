@@ -10,6 +10,12 @@ const presets = {
 };
 
 document.addEventListener("DOMContentLoaded", function() {
+console.log("Attempting to load themes.js...")
+
+themes = document.createElement("script")
+themes.src = "scripts/js/themes.js"
+document.body.appendChild(themes)
+
   const code = `
   <style>
   body {
@@ -202,3 +208,5 @@ if (localStorage.getItem("hide_ad") == "1"){
 }
 
 console.log("Loaded global.js!");
+
+

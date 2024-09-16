@@ -27,7 +27,7 @@
             z-index: 2;
             overflow-x: auto;
             align-items: center;
-            height: 45px; 
+            height: 50px; 
             background-color: #2c2c2c;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             padding: 0 15px;
@@ -247,7 +247,14 @@ upload_workspace().then((contents) => {
 
     if (frameTitle != last_title) {
         if (frameURL == ""){
-            url1 = "assets/images/darkfavi.png"
+            x = getURLParameter('url')
+            if (x.includes(".") == false){
+                x="https://duckduckgo.com/search?q=" + x
+            }
+            if (x.startsWith("https://") == false){
+                x="https://" + x
+            }
+            url1 = "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + x
         }
         else {
             url1 = "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + frameURL 
@@ -296,6 +303,9 @@ upload_workspace().then((contents) => {
                 initialized = 1;
             }
         });
+
+       
+
     </script>
     <script src="scripts/js/global.js"></script>
 </body>

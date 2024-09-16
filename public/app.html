@@ -1,0 +1,23 @@
+<script src="scripts/js/global.js"></script>
+<script src="uv/uv.bundle.js"></script>
+<script src="uv/uv.config.js"></script>
+
+<iframe style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;" id="main_frame" src="main.html"></iframe>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof __uv$config !== 'undefined' && typeof __uv$config.encodeUrl === 'function' && window.location.includes("localhost") == false) {
+      const currentUrl = window.location.href;
+      const baseUrl = currentUrl.split("app.html")[0];
+      const mainUrl = baseUrl + "main.html";
+
+      const encodedUrl = __uv$config.encodeUrl(mainUrl);
+      let finalUrl = `${__uv$config.prefix}${encodedUrl}`;
+
+
+      document.getElementById("main_frame").src = finalUrl;
+    } else {
+      console.error("__uv$config is not defined or encodeUrl function is missing.");
+    }
+  });
+</script>

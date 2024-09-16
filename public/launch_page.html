@@ -9,14 +9,16 @@
         await navigator.serviceWorker.register('/sw.js');
       })
 
+
     </script>
   <meta name="googlebot" content="index, follow, snippet">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="stylesheet" href="scripts/css/global.css">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@250" rel="stylesheet">
-  <script src="uv/uv.bundle.js" defer></script>
-  <script src="uv/uv.config.js" defer></script>
+  <script src="scripts/js/crypto.js"></script>
+  <script src="uv/uv.bundle.js" ></script>
+  <script src="uva/uv.config.js" ></script>
   <style>
     body {
       background-color: black;
@@ -27,12 +29,13 @@
     #searchbar {
       background-color: #2c2c2c;
       width: 100%;
+    
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 40px;
+      height: 45px;
       position: absolute;
-      top: 0;
+      top: 0px;
       z-index: 15;
       box-sizing: border-box;
       padding: 0 10px;
@@ -206,6 +209,11 @@ const proxy_bridge = localStorage.getItem("proxy");
 const premium_status = localStorage.getItem("premium") === "true";
 let suggestions = [];
 
+let typing = 0;
+
+document.getElementById("search").addEventListener("focusin", () => typing = 1);
+document.getElementById("search").addEventListener("focusout", () => typing = 0);
+
 
       switch (search_engine_preference) {
         case "Google":
@@ -275,7 +283,7 @@ async function set_flags() {
       }
 
       let proxy_url = check();
-      if (proxy_url.includes("Glitch")) {
+      if (proxy_url.includes("glitch")) {
         proxy_url += "/region";
         const proxyResponse = await fetch(proxy_url);
         if (!proxyResponse.ok) {
@@ -298,10 +306,7 @@ async function set_flags() {
 set_flags()
 
 
-    let typing = 0;
 
-    document.getElementById("search").addEventListener("focusin", () => typing = 1);
-    document.getElementById("search").addEventListener("focusout", () => typing = 0);
 
     function getURLParameter(name) {
       const regex = new RegExp(`[\\?&]${name}=([^&#]*)`);
@@ -339,9 +344,33 @@ set_flags()
             const frame = document.getElementById("uv-frame");
           
             const decodedUrl = __uv$config.decodeUrl(frame.contentWindow.location.href.split("/search/")[1]);
+
+            if (premium_status && proxy_bridge && !proxy_bridge.includes("None")) {
+      function check() {
+        switch (proxy_bridge) {
+          case "Glitch EU Proxy":
+            return "https://eu.glitchnetwork.xyz";
+          case "12FT":
+            return "https://12ft.io/";
+          case "Archive.org/Wayback Machine":
+            return "https://web.archive.org/";
+          case "Google Cache":
+            return "https://webcache.googleusercontent.com/search?q=cache:";
+          default:
+            return "";
+        }
+      }
+
+
+
+      x = check()
+      
+      } else x = ""
+
+
            
             if (decodedUrl && decodedUrl !== document.getElementById("search").value) {
-              document.getElementById("search").value = decodedUrl;
+              document.getElementById("search").value = decodedUrl.replace(x,"");
             }
           } catch (e) {
             console.log(e);
@@ -479,10 +508,24 @@ set_flags()
       
       const domains = await fetchGlitchDomains();
 
-      const url = buildSearchUrl(address.value, search_engine, domains);
+      url = buildSearchUrl(address.value, search_engine, domains);
       console.log(url)
       
       const frame = document.getElementById("uv-frame");
+      if (url.includes(".glitchnetwork.xyz")){
+        url = url.split("k.xyz/")
+        x = url[1]
+
+        x = __uv$config.encodeUrl(x)
+
+        y = url[0]
+        url = y + "y.xyz/search/" + x
+
+
+
+        
+
+      }
       frame.src = `${__uv$config.prefix}${__uv$config.encodeUrl(url)}`;
       frame.style.display = "block";
 
