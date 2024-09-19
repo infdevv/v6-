@@ -1,6 +1,8 @@
 /*(async() => {
     await import('./index.mjs');
   })();*/
+
+  
   
   const { createBareServer } = require('@tomphttp/bare-server-node');
   const { createServer } = require('http');
@@ -109,7 +111,6 @@
   });
 
   
-  
   fastify.get("/gdomain/", async (req, reply) => {
       try {
           const response = await fetch("https://raw.githubusercontent.com/Glitch-Network/glitch_net_domains/main/db.txt");
@@ -172,6 +173,10 @@
   
   server.on('request', (req, res) => {
       if (bare.shouldRoute(req)) {
+          // decrypt the body
+
+          
+
           bare.routeRequest(req, res);
           return;
       }

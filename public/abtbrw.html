@@ -107,8 +107,7 @@ updateTime();
     <button style="position: fixed; bottom: 25px; right: 20px; width: 250px; height: 25px; padding: 25px; border-radius: 15px; background-color: rgb(51, 51, 51); border: none; color: white; font-size: 15px; line-height: 0%; cursor: pointer;" id="launch">Launch browser seperate</button>
 
     <script>
-          document.getElementById("launch").addEventListener("click",function(){
-            function load() {
+          document.getElementById("launch").addEventListener("click",function(){function load() {
     const presets = {
         "Google Slides": "/assets/favicons/slides_favicon.png",
         "Google": "/assets/favicons/google_favicon.png",
@@ -122,12 +121,16 @@ updateTime();
 
     let preset = localStorage.getItem("autohide_preset") || "Google Classroom";
 
-    let x = window.location.replace("abtbrw.html","") + "hardened/";
-    newWindow = window.open("", "newWindow", "width=1800, height=1600");
-  newWindow.document.write('<iframe src="'+ x +'" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>');
+    // Construct the new URL
+    let baseUrl = window.location.origin; // Gets the base URL (protocol + hostname + port)
+    let x = baseUrl + "/hardened/";
 
-    
-    window.location = "https://google.com"
+    // Open a new window with an iframe to the new URL
+    let newWindow = window.open("", "newWindow", "width=1800, height=1600");
+    newWindow.document.write('<iframe src="' + x + '" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>');
+
+    // Redirect the current window to Google
+    window.location.href = "https://google.com";
 }
 
 load();
