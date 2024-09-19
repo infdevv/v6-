@@ -5,14 +5,12 @@
     
   <script src="uv/uv.bundle.js" defer></script>
   <script src="uv/uv.config.js" defer></script>
-  <script src="index.js" defer></script>
-  <script src="register-sw.js" defer></script>
     <link rel="icon" href="assets/favicon.png" type="image/png">
     <style>body {overflow: hidden;}</style>
 
     <script>
       document.addEventListener("DOMContentLoaded",async function(){
-        await navigator.serviceWorker.register('/sw.js');
+        await navigator.serviceWorker.register('sw.js');
       })
 
     </script>
@@ -282,7 +280,7 @@
 
     <script>
 
-                    function load() {
+function handle_fullscreen() {
     const presets = {
         "Google Slides": "/assets/favicons/slides_favicon.png",
         "Google": "/assets/favicons/google_favicon.png",
@@ -297,21 +295,28 @@
     let preset = localStorage.getItem("autohide_preset") || "Google Classroom";
 
     let x = "main.html";
-    newWin = window.open("", "newWindow", "width=1800, height=1600");
-    newWin.document.write('<iframe src="'+ x +'" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>');
-          
+    
+    let code = `
+        <head>
+          <title>${preset}</title>
+          <link rel="icon" type="image/x-icon" href="${presets[preset]}">
+        </head>
+        <body style="background-color: black">
+          <iframe src="${x}" frameborder="0" style="position: fixed; inset: 0; outline: none; border: none; height: 100%; width: 100%;"></iframe>
+        </body>
+    `;
 
-if(!newWin || newWin.closed || typeof newWin.closed=='undefined') 
-{ 
-    alert("Please allow popups by using the button in the URL bar. This will allow this link to last longer without being blocked and to stay out of your search history")
-}
-else {
-  window.location = "https://google.com"
-}
+    let newWindow = window.open("about:blank", "_blank");
+    newWindow.document.write(code);
+    newWindow.document.close(); // Ensure the document is complete and can be rendered
+    newWindow.document.body.style.backgroundColor = "black";
+    window.location = "https://google.com"
+
+      }
 
     
     
-}
+
 
 
 // load()

@@ -1,6 +1,8 @@
 /*(async() => {
     await import('./index.mjs');
   })();*/
+
+  
   
   const { createBareServer } = require('@tomphttp/bare-server-node');
   const { createServer } = require('http');
@@ -8,7 +10,6 @@
   const fastifyStatic = require('@fastify/static');
   const { join } = require('path');
   const httpProxy = require('http-proxy');
-  const { uvPath } = require("@titaniumnetwork-dev/ultraviolet-v2");
   const bare = createBareServer('/bare/');
   const fastify = Fastify();
   const proxyServer = httpProxy.createProxyServer();
@@ -109,11 +110,6 @@
       decorateReply: false,
   });
 
-  fastify.register(fastifyStatic, {
-    root: uvPath,
-    prefix: '/uv/',
-    decorateReply: false,
-});
   
   fastify.get("/gdomain/", async (req, reply) => {
       try {
@@ -177,6 +173,10 @@
   
   server.on('request', (req, res) => {
       if (bare.shouldRoute(req)) {
+          // decrypt the body
+
+          
+
           bare.routeRequest(req, res);
           return;
       }

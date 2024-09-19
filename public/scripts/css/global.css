@@ -41,10 +41,10 @@ body {
   background-color: var(--background-color-toolbar);
   display: flex;
   align-items: center;
-  animation: move-rainbow 5s infinite;
   border-style: solid;
   border-width: 0; /* Ensure borders are not visible by default */
   border-image-slice: 1;
+  animation: shrink 0.8s both;
 }
 
 #nav-links {
@@ -102,7 +102,6 @@ body {
   color: white;
   border-color: transparent;
   border-radius: 15px;
-  transition: background-color 0.3s, transform 0.3s; /* Add transition for smooth effects */
 }
 
 .main_button:hover {
@@ -122,15 +121,131 @@ body {
   color: #fff;
 }
 
+@keyframes grow {
+  100% {
+      padding: 15px;
+ }
+}
+@keyframes shrink {
+  from {
+      padding: 15px;
+ }
+  to {
+      padding: 10px;
 
+  }
+}
 
+.custom-model-main {
+  text-align: center;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; /* z-index: 1050; */
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear, z-index 0.15;
+  -o-transition: opacity 0.15s linear, z-index 0.15;
+  transition: opacity 0.15s linear, z-index 0.15;
+  z-index: -1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.model-open {
+  z-index: 99999;
+  opacity: 1;
+  overflow: hidden;
+}
+.custom-model-inner {
+  -webkit-transform: translate(0, -25%);
+  -ms-transform: translate(0, -25%);
+  transform: translate(0, -25%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  -o-transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  display: inline-block;
+  vertical-align: middle;
+  width: 600px;
+  margin: 30px auto;
+  max-width: 97%;
+}
+.custom-model-wrap {
+  display: block;
+  width: 100%;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  outline: 0;
+  text-align: left;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+.model-open .custom-model-inner {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  position: relative;
+  z-index: 999;
+}
+.model-open .bg-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+
+.close-btn {
+  position: absolute;
+  right: 0;
+  top: -30px;
+  cursor: pointer;
+  z-index: 99;
+  font-size: 30px;
+  color: #fff;
+}
+
+@media screen and (min-width:800px){
+  .custom-model-main:before {
+    content: "";
+    display: inline-block;
+    height: auto;
+    vertical-align: middle;
+    margin-right: -0px;
+    height: 100%;
+  }
+}
+@media screen and (max-width:799px){
+  .custom-model-inner{margin-top: 45px;}
+}
+
+ntainer{
+  max-width: 450px;
+  margin: 150px auto;
+}
 
 .container .searchInput{
+  width: 100%;
   border-radius: 5px;
   position: relative;
 }
 
 .searchInput input{
+  height: 55px;
+  width: 100%;
   outline: none;
   border: none;
   border-radius: 5px;
@@ -157,17 +272,13 @@ body {
   pointer-events: auto;
 }
 
-.resultBox {
-  position: absolute;
-}
-
 .resultBox li{
   list-style: none;
   padding: 8px 12px;
+  background-color: white;
   display: none;
   width: 70%;
-  background-color: rgb(75, 75, 75);
-  color: white;
+  color: black;
   cursor: default;
   margin-bottom: 10px;
   border-radius: 3px;
@@ -178,13 +289,15 @@ body {
   
 }
 .resultBox li:hover{
-  background: #616161;
+  background: #efefef;
 }
 
 .searchInput .icon{
   position: absolute;
   right: 0px;
   top: 0px;
+  height: 55px;
+  width: 55px;
   text-align: center;
   line-height: 55px;
   font-size: 20px;

@@ -3,7 +3,7 @@
     "@fastify/static": "^7.0.4",
     "@mercuryworkshop/bare-mux": "latest",
     "@mercuryworkshop/epoxy-transport": "latest",
-    "@titaniumnetwork-dev/ultraviolet-v2": "npm:@titaniumnetwork-dev/ultraviolet@2",
+    "@titaniumnetwork-dev/ultraviolet": "npm:@titaniumnetwork-dev/ultraviolet",
     "@tomphttp/bare-server-node": "^2.0.2",
     "express": "^4.18.1",
     "fastify": "^4.28.1",
